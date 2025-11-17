@@ -67,8 +67,6 @@ void serverRoute(){
   server.on("/script.js", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(LittleFS, "/script.js", "application/javascript");
   });
-  
-  // --- NEW IMAGE ROUTES ADDED HERE ---
   server.on("/img/weather1.png", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(LittleFS, "/img/weather1.png", "image/png");
   });
@@ -78,8 +76,6 @@ void serverRoute(){
   server.on("/img/wind.png", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(LittleFS, "/img/wind.png", "image/png");
   });
-  // -----------------------------------
-
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(200, "text/plain", readDHTTemperature().c_str());
   });
@@ -98,11 +94,10 @@ void wifiConnection(){
     Serial.println("Connecting to WiFi..");
   }
 
-  // Print ESP32 Local IP Address
+  // Print ESP32 IP Address
   Serial.println(WiFi.localIP());
 }
 void setup(){
-  // Serial port for debugging purposes
   Serial.begin(115200);
 
   dht.begin();
@@ -121,11 +116,11 @@ void setup(){
 }
  
 void loop(){
-  float humi  = dht.readHumidity();    // read humidity
-  float tempC = dht.readTemperature(); // read temperature
+  float humi  = dht.readHumidity();
+  float tempC = dht.readTemperature();
 
   lcd.clear();
-  // check whether the reading is successful or not
+  
   if (isnan(tempC) || isnan(humi)) {
     lcd.setCursor(0, 0);
     lcd.print("Failed");

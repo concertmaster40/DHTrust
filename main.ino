@@ -65,7 +65,7 @@ void serverRoute(){
     request->send(LittleFS, "/style.css", "text/css");
   });
   server.on("/script.js", HTTP_GET, [](AsyncWebServerRequest *request){
-  request->send(LittleFS, "/script.js", "application/javascript");
+    request->send(LittleFS, "/script.js", "application/javascript");
   });
   
   // --- NEW IMAGE ROUTES ADDED HERE ---
